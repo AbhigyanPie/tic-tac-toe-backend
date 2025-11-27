@@ -1,0 +1,66 @@
+# Nakama Configuration for Multiplayer Tic-Tac-Toe
+# Version 2.1
+
+name: tictactoe
+
+# Logging
+logger:
+  level: DEBUG
+  stdout: true
+
+# Socket/WebSocket settings
+socket:
+  server_key: "defaultkey"
+  pong_wait_ms: 25000
+  ping_period_ms: 15000
+  write_wait_ms: 5000
+
+# Session settings
+session:
+  token_expiry_sec: 86400
+  single_socket: false
+  single_match: false
+  single_party: false
+
+# Runtime settings - IMPORTANT
+runtime:
+  # This is the ONLY file Nakama loads
+  js_entrypoint: "main.js"
+  http_key: "defaulthttpkey"
+  
+  # Timeouts
+  read_timeout_ms: 10000
+  write_timeout_ms: 10000
+
+# Match settings
+match:
+  input_queue_size: 128
+  call_queue_size: 128
+  join_attempt_queue_size: 128
+  deferred_queue_size: 128
+  join_marker_deadline_ms: 15000
+
+# MATCHMAKER SETTINGS - CRITICAL FOR FINDING OPPONENTS
+matchmaker:
+  # How often matchmaker runs (in seconds)
+  # Lower = faster matching but more CPU
+  interval_sec: 1
+  
+  # Max tickets processed per interval
+  max_tickets: 8
+  
+  # Max intervals before ticket expires
+  # 120 intervals * 1 second = 2 minutes max wait
+  max_intervals: 120
+  
+  # Max players that can be matched together
+  max_players: 2
+
+# Console (Admin UI) - accessible at http://localhost:7351
+console:
+  port: 7351
+  username: "admin"
+  password: "password"
+  signing_key: "defaultsigningkey"
+
+# Database will be configured via command line/docker-compose
